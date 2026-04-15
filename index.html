@@ -2,17 +2,39 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>App BB Dog</title>
-<style>
-body { font-family: Arial; margin: 20px; background: #f5f7fa; }
-h1 { color: #1e3a8a; }
-select, input, textarea { padding: 10px; font-size: 16px; width: 100%; margin-bottom: 10px; }
 
-.item { display: flex; justify-content: space-between; margin: 8px 0; }
+<style>
+body {
+    font-family: Arial;
+    margin: 10px;
+    background: #f5f7fa;
+}
+
+h1 {
+    color: #1e3a8a;
+    font-size: 22px;
+}
+
+select, input, textarea {
+    padding: 12px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
 
 .controls button {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border: none;
     color: white;
     font-size: 18px;
@@ -25,12 +47,27 @@ select, input, textarea { padding: 10px; font-size: 16px; width: 100%; margin-bo
     margin-top: 20px;
     font-weight: bold;
     color: #1e3a8a;
+    font-size: 18px;
 }
 
-.acoes { margin-top: 15px; display:flex; gap:10px; }
+.acoes {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-.btn-enviar { padding:10px; }
-.btn-limpar { padding:10px; background:#555; color:white; border:none; }
+.btn-enviar, .btn-limpar {
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+    border: none;
+}
+
+.btn-limpar {
+    background: #555;
+    color: white;
+}
 </style>
 </head>
 
