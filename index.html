@@ -7,7 +7,6 @@
 
 <style>
 body { font-family: Arial; margin: 10px; background: #f5f7fa; }
-
 h1 { color: #1e3a8a; font-size: 22px; }
 
 select, input, textarea {
@@ -18,55 +17,21 @@ select, input, textarea {
     box-sizing: border-box;
 }
 
-.item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin: 10px 0;
-}
+.item { display: flex; flex-direction: column; margin: 6px 0; padding: 6px; border-radius: 6px; }
+.linha-par { background: #f1f3f5; }
 
-.item-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
+.item-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.desc { flex: 1; font-size: 14px; }
 
-.desc {
-    flex: 1;
-    font-size: 14px;
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.controls button {
-    width: 38px;
-    height: 38px;
-    border: none;
-    color: white;
-    font-size: 18px;
-}
+.controls { display: flex; align-items: center; gap: 5px; }
+.controls button { width: 38px; height: 38px; border: none; color: white; font-size: 18px; }
 
 .btn-minus { background: red; }
 .btn-plus { background: blue; }
 
-.categoria {
-    margin-top: 20px;
-    font-weight: bold;
-    color: #1e3a8a;
-    font-size: 18px;
-}
+.categoria { margin-top: 20px; font-weight: bold; color: #1e3a8a; font-size: 18px; }
 
-.acoes {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+.acoes { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
 
 .btn-enviar, .btn-limpar {
     padding: 15px;
@@ -76,6 +41,14 @@ select, input, textarea {
 }
 
 .btn-limpar { background: #555; color: white; }
+
+.logo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 60px;
+    opacity: 0.8;
+}
 </style>
 </head>
 
@@ -100,10 +73,12 @@ select, input, textarea {
 <button class="btn-limpar" onclick="limparTela()">Limpar Tela</button>
 </div>
 
+<img src="logo.png" class="logo">
+
 <script>
 let produtos = [];
 let lojas = [];
-let quantidades = JSON.parse(localStorage.getItem("qtd")) || {};
+let quantidades = {};
 
 async function carregarDados(){
     produtos = await fetch("produtos.json").then(r=>r.json());
@@ -126,6 +101,7 @@ function render(){
     div.innerHTML = "";
 
     let catAtual = "";
+    let index = 0;
 
     produtos.forEach(p=>{
         if(!p.descricao.toLowerCase().includes(busca)) return;
@@ -136,9 +112,10 @@ function render(){
         }
 
         const qtd = quantidades[p.codigo] || 0;
+        const classe = (index % 2 === 0) ? "item linha-par" : "item";
 
         div.innerHTML += `
-        <div class="item">
+        <div class="${classe}">
             <div class="item-top">
                 <div class="desc">${p.codigo} - ${p.descricao}</div>
                 <div class="controls">
@@ -148,23 +125,20 @@ function render(){
                 </div>
             </div>
         </div>`;
+
+        index++;
     });
 }
 
-function mais(c){ quantidades[c]=(quantidades[c]||0)+1; salvar(); }
-function menos(c){ if(quantidades[c]>0){quantidades[c]--; salvar();}}
-
-function salvar(){
-    localStorage.setItem("qtd", JSON.stringify(quantidades));
-    render();
-}
+function mais(c){ quantidades[c]=(quantidades[c]||0)+1; render(); }
+function menos(c){ if(quantidades[c]>0){quantidades[c]--; render();}}
 
 function limparTela(){
     if(confirm("Deseja limpar todo o pedido?")){
         quantidades = {};
         document.getElementById("extra").value = "";
         document.getElementById("prazo").value = "";
-        salvar();
+        render();
     }
 }
 
@@ -186,6 +160,8 @@ function montarMensagem(){
     const d=new Date();
     const dias=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
 
+    let totalItens = 0;
+
     let msg=`*PEDIDO Nº:* ${gerarNumero()}\n`;
     msg+=`*Data:* ${d.toLocaleDateString()} (${dias[d.getDay()]})\n`;
     msg+=`*Hora:* ${d.toLocaleTimeString().slice(0,5)}\n\n`;
@@ -199,6 +175,7 @@ function montarMensagem(){
 
     produtos.forEach(p=>{
         if(quantidades[p.codigo]>0){
+            totalItens++;
             msg+=`${p.codigo} - ${p.descricao} = ${quantidades[p.codigo]} ${p.embalagem}\n`;
         }
     });
@@ -207,7 +184,7 @@ function montarMensagem(){
         msg+=`\n*ITENS NÃO ENCONTRADOS:*\n${extra}\n`;
     }
 
-    msg+=`\n----------------------------\nPedido gerado via App BB Dog`;
+    msg+=`\n----------------------------\n*TOTAL DE ITENS:* ${totalItens}\n\nPedido gerado via App BB Dog`;
     return msg;
 }
 
@@ -218,10 +195,6 @@ function confirmarEnvio(){
     }
 
     const msg = montarMensagem();
-
-    if(confirm("Conferir pedido antes de enviar?")){
-        alert(msg);
-    }
 
     if(confirm("Enviar pedido?")){
         window.open("https://wa.me/5515997094000?text="+encodeURIComponent(msg));
