@@ -6,16 +6,9 @@
 <title>App BB Dog</title>
 
 <style>
-body {
-    font-family: Arial;
-    margin: 10px;
-    background: #f5f7fa;
-}
+body { font-family: Arial; margin: 10px; background: #f5f7fa; }
 
-h1 {
-    color: #1e3a8a;
-    font-size: 22px;
-}
+h1 { color: #1e3a8a; font-size: 22px; }
 
 select, input, textarea {
     padding: 12px;
@@ -27,14 +20,32 @@ select, input, textarea {
 
 .item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 5px;
     margin: 10px 0;
 }
 
+.item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.desc {
+    flex: 1;
+    font-size: 14px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .controls button {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border: none;
     color: white;
     font-size: 18px;
@@ -64,10 +75,7 @@ select, input, textarea {
     border: none;
 }
 
-.btn-limpar {
-    background: #555;
-    color: white;
-}
+.btn-limpar { background: #555; color: white; }
 </style>
 </head>
 
@@ -76,9 +84,7 @@ select, input, textarea {
 <h1>Pedido BB Dog</h1>
 
 <select id="loja"></select>
-
 <input type="text" id="busca" placeholder="Buscar produto...">
-
 <textarea id="extra" placeholder="Se faltou algum produto que você não encontrou na lista digite aqui"></textarea>
 
 <select id="prazo">
@@ -133,11 +139,13 @@ function render(){
 
         div.innerHTML += `
         <div class="item">
-            <span>${p.codigo} - ${p.descricao}</span>
-            <div class="controls">
-                <button class="btn-minus" onclick="menos('${p.codigo}')">-</button>
-                ${qtd}
-                <button class="btn-plus" onclick="mais('${p.codigo}')">+</button>
+            <div class="item-top">
+                <div class="desc">${p.codigo} - ${p.descricao}</div>
+                <div class="controls">
+                    <button class="btn-minus" onclick="menos('${p.codigo}')">-</button>
+                    ${qtd}
+                    <button class="btn-plus" onclick="mais('${p.codigo}')">+</button>
+                </div>
             </div>
         </div>`;
     });
