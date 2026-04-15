@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>App BB Dog</title>
+<style>
+body { font-family: Arial; margin: 20px; background: #f5f7fa; }
+h1 { color: #1e3a8a; }
+select, input, textarea { padding: 10px; font-size: 16px; width: 100%; margin-bottom: 10px; }
+
+.item { display: flex; justify-content: space-between; margin: 8px 0; }
+
+.controls button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    color: white;
+    font-size: 18px;
+}
+
+.btn-minus { background: red; }
+.btn-plus { background: blue; }
+
+.categoria {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+.acoes { margin-top: 15px; display:flex; gap:10px; }
+
+.btn-enviar { padding:10px; }
+.btn-limpar { padding:10px; background:#555; color:white; border:none; }
+</style>
+</head>
+
+<body>
+
+<h1>Pedido BB Dog</h1>
+
+<select id="loja"></select>
+
+<input type="text" id="busca" placeholder="Buscar produto...">
+
+<textarea id="extra" placeholder="Se faltou algum produto que você não encontrou na lista digite aqui"></textarea>
+
+<select id="prazo">
+<option value="">Selecione o prazo de entrega</option>
+<option value="URGENTE, PRA HOJE">URGENTE, PRA HOJE</option>
+<option value="TA TRANQUILO, HOJE OU AMANHA">TA TRANQUILO, HOJE OU AMANHA</option>
+</select>
+
+<div id="produtos"></div>
+
+<div class="acoes">
+<button class="btn-enviar" onclick="confirmarEnvio()">Enviar Pedido</button>
+<button class="btn-limpar" onclick="limparTela()">Limpar Tela</button>
+</div>
+
+<script>
+let produtos = [];
+let lojas = [];
+let quantidades = JSON.parse(localStorage.getItem("qtd")) || {};
+
+async function carregarDados(){
+    produtos = await fetch("produtos.json").then(r=>r.json());
+    lojas = await fetch("lojas.json").then(r=>r.json());
+
+    const select = document.getElementById("loja");
+    select.innerHTML = "<option value=''>Selecione a loja</option>";
+
+    lojas.forEach(l=>{
+        select.innerHTML += `<option value="${l.codigo} - ${l.nome}">
+        ${l.codigo} - ${l.nome}</option>`;
+    });
+
+    render();
+}
+
+function render(){
+    const busca = document.getElementById("busca").value.toLowerCase();
+    const div = document.getElementById("produtos");
+    div.innerHTML = "";
+
+    let catAtual = "";
+
+    produtos.forEach(p=>{
+        if(!p.descricao.toLowerCase().includes(busca)) return;
+
+        if(p.categoria !== catAtual){
+            catAtual = p.categoria;
+            div.innerHTML += `<div class="categoria">${p.categoria}</div>`;
+        }
+
+        const qtd = quantidades[p.codigo] || 0;
+
+        div.innerHTML += `
+        <div class="item">
+            <span>${p.codigo} - ${p.descricao}</span>
+            <div class="controls">
+                <button class="btn-minus" onclick="menos('${p.codigo}')">-</button>
+                ${qtd}
+                <button class="btn-plus" onclick="mais('${p.codigo}')">+</button>
+            </div>
+        </div>`;
+    });
+}
+
+function mais(c){ quantidades[c]=(quantidades[c]||0)+1; salvar(); }
+function menos(c){ if(quantidades[c]>0){quantidades[c]--; salvar();}}
+
+function salvar(){
+    localStorage.setItem("qtd", JSON.stringify(quantidades));
+    render();
+}
+
+function limparTela(){
+    if(confirm("Deseja limpar todo o pedido?")){
+        quantidades = {};
+        document.getElementById("extra").value = "";
+        document.getElementById("prazo").value = "";
+        salvar();
+    }
+}
+
+function gerarNumero(){
+    const d=new Date();
+    return "BB"+
+    String(d.getDate()).padStart(2,'0')+
+    String(d.getMonth()+1).padStart(2,'0')+
+    String(d.getFullYear()).slice(2)+"-"+
+    String(d.getHours()).padStart(2,'0')+
+    String(d.getMinutes()).padStart(2,'0');
+}
+
+function montarMensagem(){
+    const loja = document.getElementById("loja").value;
+    const extra = document.getElementById("extra").value.trim();
+    const prazo = document.getElementById("prazo").value;
+
+    const d=new Date();
+    const dias=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
+
+    let msg=`*PEDIDO Nº:* ${gerarNumero()}\n`;
+    msg+=`*Data:* ${d.toLocaleDateString()} (${dias[d.getDay()]})\n`;
+    msg+=`*Hora:* ${d.toLocaleTimeString().slice(0,5)}\n\n`;
+    msg+=`*Loja:* ${loja}\n`;
+
+    if(prazo){
+        msg+=`\n*Prazo de Entrega:* ${prazo}\n`;
+    }
+
+    msg+=`\n*ITENS:*\n`;
+
+    produtos.forEach(p=>{
+        if(quantidades[p.codigo]>0){
+            msg+=`${p.codigo} - ${p.descricao} = ${quantidades[p.codigo]} ${p.embalagem}\n`;
+        }
+    });
+
+    if(extra){
+        msg+=`\n*ITENS NÃO ENCONTRADOS:*\n${extra}\n`;
+    }
+
+    msg+=`\n----------------------------\nPedido gerado via App BB Dog`;
+    return msg;
+}
+
+function confirmarEnvio(){
+    if(!document.getElementById("loja").value){
+        alert("Selecione a loja");
+        return;
+    }
+
+    const msg = montarMensagem();
+
+    if(confirm("Conferir pedido antes de enviar?")){
+        alert(msg);
+    }
+
+    if(confirm("Enviar pedido?")){
+        window.open("https://wa.me/5515997094000?text="+encodeURIComponent(msg));
+    }
+}
+
+document.getElementById("busca").addEventListener("input", render);
+carregarDados();
+</script>
+
+</body>
+</html>
