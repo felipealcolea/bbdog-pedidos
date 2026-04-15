@@ -2,8 +2,8 @@
   {
     "categoria": "ALUMINIO",
     "codigo": "941",
-    "descricao": "ROLO ALUMINIO 30X100 (6und /1cx)",
-    "embalagem": "UND",
+    "descricao": "ROLO ALUMINIO 30X100 (6rl/1cx)",
+    "embalagem": "RL",
     "link": ""
   },
   {
@@ -11,98 +11,98 @@
     "codigo": "431",
     "descricao": "CANUDO SACHE C/500",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/cb-503-canudo-205x5mm-em-sache-bio-c-500-cropac/"
   },
   {
     "categoria": "COPOS / GARRAFAS",
     "codigo": "1164",
-    "descricao": "COPO 330ML PP LISO C/100 (20pcts 1cx)",
+    "descricao": "COPO 330ML C/100 (20pct/1cx)",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/copo-330ml-pp-liso-c-50-totalplast/"
   },
   {
     "categoria": "COPOS / GARRAFAS",
     "codigo": "1166",
     "descricao": "COPO 550ML PP LISO C/50",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/copo-550ml-pp-liso-c-50-totalplast/"
   },
   {
     "categoria": "COPOS / GARRAFAS",
     "codigo": "108",
     "descricao": "COPO 50ML CAFÉ C/100",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/copo-50ml-ps-transparente-estriado-c-100-totalplast/"
   },
   {
     "categoria": "COPOS / GARRAFAS",
     "codigo": "256",
     "descricao": "GARRAFA PET 300ML C/100",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/garrafa-pet-cr-tp-lacre-300ml-c-100/"
   },
   {
     "categoria": "COPOS / GARRAFAS",
     "codigo": "257",
     "descricao": "GARRAFA PET 500ML C/100",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/garrafa-pet-cr-tp-lacre-500ml-c-100/"
   },
   {
     "categoria": "ISOPOR",
     "codigo": "114",
-    "descricao": "TM-100-MARMITEX P 500ML C/100",
+    "descricao": "TM-100-MARMITEX P C/100",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/tm-100-marmita-eps-500ml-com-tampa-188x35-c-100-totalplast/"
   },
   {
     "categoria": "ISOPOR",
     "codigo": "112",
-    "descricao": "TM-102-MARMITA M 750ML C/100",
+    "descricao": "TM-102-MARMITA M C/100",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/tm-102-marmita-eps-750ml-com-tampa-187x52-c-100-totalplast/"
   },
   {
     "categoria": "PAPEL",
     "codigo": "264",
     "descricao": "P. ACOPLADO 30X38 C/400",
     "embalagem": "CX",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/papel-acoplado-hamburguer-30x38-c-400-castelinho/"
   },
   {
     "categoria": "PAPEL",
     "codigo": "265",
-    "descricao": "P. ACOPLADO 40X40 C/400 (MAIOR)",
+    "descricao": "P. ACOPLADO 40X40 C/400 (G)",
     "embalagem": "CX",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/papel-acoplado-40x40-hamburguer-c-400-castelinho/"
   },
   {
     "categoria": "PAPEL",
     "codigo": "266",
     "descricao": "GUARDANAPO TV C/2.000",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/guardanapo-tv-seda-14x13-c-2-000-castelinho/"
   },
   {
     "categoria": "PAPEL",
     "codigo": "177",
     "descricao": "PAPEL HIG. ROLAO C/8",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/papel-higienico-suavepel-branco-rolao-advance-300mts-c-8/"
   },
   {
     "categoria": "PAPEL",
     "codigo": "1375",
-    "descricao": "PAPEL TOALHA BOB C/6 - GUARA",
+    "descricao": "PAPEL GUARA BOB C/6",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/papel-toalha-bobina-branco-20cm-x-200mts-advance-c-6-rolos/"
   },
   {
     "categoria": "PAPEL",
     "codigo": "173",
-    "descricao": "PAPEL TOALHA INTERF. C/1.000",
+    "descricao": "PAPEL INTERF. C/1.000",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/papel-toalha-interfolha-branco-20cm-x-21cm-advance-c-1-000/"
   },
   {
     "categoria": "PAPELARIA",
@@ -114,7 +114,7 @@
   {
     "categoria": "PAPELARIA",
     "codigo": "137",
-    "descricao": "FITA DUREX 24MM X 40MTS C/10",
+    "descricao": "FITA DUREX 24X40 C/10",
     "embalagem": "PCT",
     "link": ""
   },
@@ -142,9 +142,9 @@
   {
     "categoria": "PLÁSTICOS",
     "codigo": "1098",
-    "descricao": "SAQUINHO CHUP-CHUP C/100",
+    "descricao": "SAQUINHO CHUP C/100",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/saco-chup-chup-plastico-4x23cm-c-100/"
   },
   {
     "categoria": "PLÁSTICOS",
@@ -191,42 +191,42 @@
   {
     "categoria": "PLÁSTICOS",
     "codigo": "601",
-    "descricao": "G645 - MINI DOCE 120ML C/300",
+    "descricao": "G645 - DOCE 120ML C/300",
     "embalagem": "CX",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/g645-mini-doce-redondo-millenium-120ml-cristal-com-tampa-c-300-galvanotek/"
   },
   {
     "categoria": "PLÁSTICOS",
     "codigo": "437",
     "descricao": "SACO LIXO 200 LTS REF. 5KG",
     "embalagem": "FD",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/saco-de-lixo-200-litros-reforcado-5kg/"
   },
   {
     "categoria": "TALHERES",
     "codigo": "4",
-    "descricao": "KIT TALHER (GARFO+FACA) C/50",
+    "descricao": "KIT TALHER GARFO+FACA C/50",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/kit-garfo-e-faca-embalado-c-50-goldenplast/"
   },
   {
     "categoria": "TALHERES",
     "codigo": "272",
     "descricao": "COLHER BOLO C/50",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/colher-sobremesa-c-50-goldenplast/"
   },
   {
     "categoria": "TALHERES",
     "codigo": "810",
     "descricao": "PAZINHA SORVETE C/200",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/pa-pequena-cristal-goldenplast-c-200-goldenplast/"
   },
   {
     "categoria": "TALHERES",
     "codigo": "155",
-    "descricao": "PALITO SACHE DENTAL C/1.000",
+    "descricao": "PALITO SACHE C/1.000",
     "embalagem": "CX",
     "link": ""
   },
@@ -261,21 +261,21 @@
   {
     "categoria": "LIMPEZA",
     "codigo": "1421",
-    "descricao": "ESPONJA ALUMIL ACO (START)",
+    "descricao": "ESPONJA ALUMIL ACO",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/esponja-alumil-aco-anatomica-30gr-und-start/"
   },
   {
     "categoria": "LIMPEZA",
     "codigo": "283",
-    "descricao": "LIMPA AZULEJO 25CM (JRZ)",
+    "descricao": "LIMPA AZULEJO 25CM",
     "embalagem": "UND",
     "link": ""
   },
   {
     "categoria": "LIMPEZA",
     "codigo": "284",
-    "descricao": "RODO METAL 40CM (JRZ)",
+    "descricao": "RODO METAL 40CM",
     "embalagem": "UND",
     "link": ""
   },
@@ -303,44 +303,44 @@
   {
     "categoria": "LIMPEZA LÍQUIDA",
     "codigo": "727",
-    "descricao": "ALCOOL 70º LIQ. 1LT (Caixa = C/12)",
+    "descricao": "ALCOOL 70º LIQ. 1LT (12/1cx)",
     "embalagem": "LT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/alcool-liquido-1lt-70o-clarity/"
   },
   {
     "categoria": "LIMPEZA LÍQUIDA",
     "codigo": "31",
     "descricao": "CANDIDA 5L",
     "embalagem": "GL",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/agua-sanitaria-girassol-2-l2-5llimpador-clorado-mgd/"
   },
   {
     "categoria": "LIMPEZA LÍQUIDA",
     "codigo": "38",
     "descricao": "DESINFETANTE LAVANDA 5 LT",
     "embalagem": "GL",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/desinfetante-uso-geral-lavanda-5-litros-mgd/"
   },
   {
     "categoria": "LIMPEZA LÍQUIDA",
     "codigo": "43",
     "descricao": "MULTIUSO GERAL LIQ. 5 LT",
     "embalagem": "GL",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/multiuso-geral-liquido-le-5-litros-mgd/"
   },
   {
     "categoria": "LIMPEZA LÍQUIDA",
     "codigo": "27",
     "descricao": "LIMPA ALUMINIO 5 LT",
     "embalagem": "GL",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/limpa-aluminio-rosa-le-5-litros-mgd/"
   },
   {
     "categoria": "LIMPEZA LÍQUIDA",
     "codigo": "32",
-    "descricao": "SABONETE LIQ. ERVA DOCE 5 LT",
+    "descricao": "SABONETE LIQ. ERVA D. 5LT",
     "embalagem": "GL",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/sabonete-liquido-erva-doce-le-5-litros-mgd/"
   },
   {
     "categoria": "LUVAS PRETA",
@@ -359,15 +359,15 @@
   {
     "categoria": "PANOS",
     "codigo": "168",
-    "descricao": "PANO DE PRATO BRANCO C/5",
+    "descricao": "PANO PRATO BRANCO C/5",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/pano-de-prato-branco-42x65-com-5-unidades/"
   },
   {
     "categoria": "PANOS",
     "codigo": "166",
     "descricao": "SACO XADREZ AZUL C/5",
     "embalagem": "PCT",
-    "link": ""
+    "link": "https://fbfdistribuidora.com.br/produto/saco-alvejado-40x65-xadrez-azul-com-5-unidades/"
   }
 ]
