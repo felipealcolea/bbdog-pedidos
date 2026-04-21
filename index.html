@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BB Dog - Sistema de Pedidos</title>
+    <title>BB Dog - Pedidos</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -334,6 +334,77 @@
             margin-top: 0;
         }
 
+        .category-badge {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .category-badge:hover {
+            filter: brightness(1.1);
+        }
+        .category-badge i.chevron {
+            transition: transform 0.3s ease;
+        }
+        .category-badge.collapsed i.chevron {
+            transform: rotate(-90deg);
+        }
+        .category-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            overflow: hidden;
+        }
+        .category-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+            display: none;
+        }
+        
+        @keyframes pulse-cart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse-cart 0.4s ease-in-out;
+        }
+
+        .order-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        .order-item-actions .btn-sm {
+            padding: 0.1rem 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1.2;
+        }
+        
+        .clear-all-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .clear-all-btn:hover {
+            background-color: #b91c1c;
+            transform: translateY(-1px);
+        }
+
         /* ===== PRODUCT CARD ===== */
         .product-item {
             background: white;
@@ -357,12 +428,38 @@
 
         .product-item:hover {
             border-color: var(--primary-light);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+            background-color: #f1f5f9;
+        }
+
+        .view-link-btn {
+            background: none;
+            border: none;
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin-left: 0.5rem;
+        }
+
+        .view-link-btn:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .product-info-wrapper {
+            display: flex;
+            align-items: center;
+            flex: 1;
         }
 
         .product-item.selected {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(30, 58, 138, 0.05) 100%);
             border-color: var(--primary-light);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
         }
 
         .product-info {
@@ -753,6 +850,110 @@
             }
         }
 
+        /* Buyer Section and Modal */
+        .buyer-section {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .buyer-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        .buyer-section input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .buyer-section input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+        }
+        .buyer-section input.error {
+            border-color: var(--danger-color);
+            background-color: #fef2f2;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .modal-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .modal-option {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .modal-option.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+        .delivery-notes-area {
+            display: none;
+            margin-top: 1rem;
+        }
+        .delivery-notes-area textarea {
+            width: 100%;
+            height: 100px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: none;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
         /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 8px;
@@ -769,6 +970,27 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
+        }
+
+        /* ===== FOOTER COM VERSÃO ===== */
+        .app-footer {
+            background-color: var(--dark-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -822,7 +1044,12 @@
 
             <!-- Main Content (Mobile: full width, Desktop: 9 cols) -->
             <div class="col-12 col-lg-9 order-lg-1">
-                <!-- Products List -->
+                <!-- Buyer Name -->
+                <div class="buyer-section">
+                    <label for="comprador"><i class="bi bi-person-badge"></i> Nome do Comprador (Obrigatório)</label>
+                    <input type="text" id="comprador" placeholder="Digite seu nome completo..." required>
+                </div>
+
                 <div id="lista">
                     <!-- Products will be inserted here -->
                 </div>
@@ -841,7 +1068,7 @@
                             <button class="action-btn btn-clear" onclick="limpar()">
                                 <i class="bi bi-trash"></i> <span>Limpar</span>
                             </button>
-                            <button class="action-btn btn-send" onclick="enviar()">
+                            <button class="action-btn btn-send" onclick="openDeliveryModal()">
                                 <i class="bi bi-whatsapp"></i> <span>Enviar</span>
                             </button>
                         </div>
@@ -861,111 +1088,57 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        let produtos = [], lojas = [], qtd = {}, modo = "todos", hold = null;
+        let produtos = [], lojas = [], qtd = {}, modo = "todos", hold = null, collapsedCats = {};
+        const STORAGE_KEY_CART = 'bb_dog_cart';
+        const STORAGE_KEY_BUYER = 'bb_dog_buyer';
+        const WHATSAPP_NUMBER = '5515997094000';
+
+        function toggleCat(catName) {
+            collapsedCats[catName] = !collapsedCats[catName];
+            render();
+        }
+
+        function pulseCart() {
+            const cart = document.getElementById("floatingCart");
+            if (!cart) return;
+            cart.classList.remove("pulse");
+            void cart.offsetWidth;
+            cart.classList.add("pulse");
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY_CART, JSON.stringify(qtd));
+            localStorage.setItem(STORAGE_KEY_BUYER, document.getElementById('comprador').value);
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY_CART);
+            if (saved) {
+                try {
+                    qtd = JSON.parse(saved);
+                    document.getElementById('comprador').value = localStorage.getItem(STORAGE_KEY_BUYER) || '';
+                } catch(e) { console.error(e); }
+            }
+        }
+
+        function limparTudo() {
+            if (confirm("Deseja realmente limpar todo o pedido?")) {
+                qtd = {};
+                saveState();
+                render();
+                showToast("Pedido limpo");
+            }
+        }
 
         // Initialize
         async function init() {
+            loadState();
             try {
                 // Load products
-                produtos = [
-  // Aluminio
-  { codigo: "941", descricao: "ROLO ALUMINIO 30X100 (UNIDADE)", categoria: "ALUMINIO", embalagem: "und" },
-  { codigo: "941", descricao: "ROLO ALUMINIO 30X100 (!Caixa C/6!)", categoria: "ALUMINIO", embalagem: "cx" },
-
-  // Copos / Garrafas
-  { codigo: "431", descricao: "CANUDO SACHE C/500", categoria: "COPOS / GARRAFAS", embalagem: "pct" },
-  { codigo: "1164", descricao: "COPO 330ML C/100 (Pacote)", categoria: "COPOS / GARRAFAS", embalagem: "pct" },
-  { codigo: "1165", descricao: "COPO 330ML C/1.000 (!CAIXA!)", categoria: "COPOS / GARRAFAS", embalagem: "cx" },
-  { codigo: "1166", descricao: "COPO 550ML PP LISO C/50", categoria: "COPOS / GARRAFAS", embalagem: "pct" },
-  { codigo: "108", descricao: "COPO 50ML CAFÉ C/100", categoria: "COPOS / GARRAFAS", embalagem: "pct" },
-  { codigo: "256", descricao: "GARRAFA PET 300ML C/100", categoria: "COPOS / GARRAFAS", embalagem: "fd" },
-  { codigo: "257", descricao: "GARRAFA PET 500ML C/100", categoria: "COPOS / GARRAFAS", embalagem: "fd" },
-
-  // Isopor
-  { codigo: "114", descricao: "TM-100-MARMITEX P C/100", categoria: "ISOPOR", embalagem: "fd" },
-  { codigo: "112", descricao: "TM-102-MARMITA M C/100", categoria: "ISOPOR", embalagem: "fd" },
-
-  // Papel
-  { codigo: "264", descricao: "PAPEL ACOPLADO 30X38 C/400", categoria: "PAPEL", embalagem: "cx" },
-  { codigo: "265", descricao: "PAPEL ACOPLADO 40X40 C/400 (G)", categoria: "PAPEL", embalagem: "cx" },
-  { codigo: "266", descricao: "GUARDANAPO TV C/2.000", categoria: "PAPEL", embalagem: "pct" },
-  { codigo: "177", descricao: "PAPEL HIGIENICO ROLÃO C/8", categoria: "PAPEL", embalagem: "fd" },
-  { codigo: "1375", descricao: "PAPEL GUARA BOBINCA C/6", categoria: "PAPEL", embalagem: "fd" },
-  { codigo: "173", descricao: "PAPEL INTERFOLHADO C/1.000", categoria: "PAPEL", embalagem: "pct" },
-
-  // Papelaria
-  { codigo: "814", descricao: "CLIPS DE ACO 2/0 C/415", categoria: "PAPELARIA", embalagem: "cx" },
-  { codigo: "137", descricao: "FITA DUREX 24X40 C/10", categoria: "PAPELARIA", embalagem: "pct" },
-  { codigo: "813", descricao: "GRAMPO C/5000", categoria: "PAPELARIA", embalagem: "cx" },
-  { codigo: "133", descricao: "BOBINA AMARELA PDV C/30", categoria: "PAPELARIA", embalagem: "cx" },
-  { codigo: "134", descricao: "BOBINA BRANCA PDV C/30", categoria: "PAPELARIA", embalagem: "cx" },
-
-  // Plásticos
-  { codigo: "1098", descricao: "SAQUINHO CHUP-CHUP C/100", categoria: "PLÁSTICOS", embalagem: "pct" },
-  { codigo: "458", descricao: "BOBINA FUNDO ESTRELA G", categoria: "PLÁSTICOS", embalagem: "rl" },
-  { codigo: "024", descricao: "SACOLA PLAS. 38X48 C/1.000", categoria: "PLÁSTICOS", embalagem: "pct" },
-  { codigo: "665", descricao: "SACO LEITOSO PEBD 18X15", categoria: "PLÁSTICOS", embalagem: "pct" },
-  { codigo: "1203", descricao: "SACO LEITOSO PEBD 18X30", categoria: "PLÁSTICOS", embalagem: "pct" },
-  { codigo: "1204", descricao: "SACO LEITOSO PEBD 20X25", categoria: "PLÁSTICOS", embalagem: "pct" },
-  { codigo: "002", descricao: "SACO TALHER 6X24 C/1.000", categoria: "PLÁSTICOS", embalagem: "pct" },
-  { codigo: "601", descricao: "G645 - DOCE 120ML C/300", categoria: "PLÁSTICOS", embalagem: "cx" },
-  { codigo: "437", descricao: "SACO LIXO 200 LTS REF. 5KG", categoria: "PLÁSTICOS", embalagem: "fd" },
-
-  // Talheres
-  { codigo: "004", descricao: "KIT TALHER GARFO+FACA C/50", categoria: "TALHERES", embalagem: "pct" },
-  { codigo: "272", descricao: "COLHER BOLO C/50", categoria: "TALHERES", embalagem: "pct" },
-  { codigo: "810", descricao: "PAZINHA SORVETE C/200", categoria: "TALHERES", embalagem: "pct" },
-  { codigo: "155", descricao: "PALITO SACHE C/1.000", categoria: "TALHERES", embalagem: "cx" },
-
-  // Limpeza
-  { codigo: "618", descricao: "LUVA AMARELA P (PAR)", categoria: "LIMPEZA", embalagem: "pct" },
-  { codigo: "139", descricao: "LUVA AMARELA M (PAR)", categoria: "LIMPEZA", embalagem: "pct" },
-  { codigo: "582", descricao: "LUVA AMARELA M (PAR)", categoria: "LIMPEZA", embalagem: "pct" },
-  { codigo: "357", descricao: "FIBRA DE LIMPEZA 3M C/5", categoria: "LIMPEZA", embalagem: "pct" },
-  { codigo: "1421", descricao: "ESPONJA ALUMIL ACO", categoria: "LIMPEZA", embalagem: "pct" },
-  { codigo: "283", descricao: "LIMPA AZULEJO 25CM", categoria: "LIMPEZA", embalagem: "und" },
-  { codigo: "284", descricao: "RODO METAL 40CM", categoria: "LIMPEZA", embalagem: "und" },
-  { codigo: "136", descricao: "TOUCA TNT BRANCA C/100", categoria: "LIMPEZA", embalagem: "pct" },
-  { codigo: "287", descricao: "VASSOURA ESFREGAO", categoria: "LIMPEZA", embalagem: "und" },
-  { codigo: "281", descricao: "CABO DE MADEIRA 1,20CM", categoria: "LIMPEZA", embalagem: "und" },
-
-  // Limpeza Líquida
-  { codigo: "727", descricao: "ALCOOL 70º LIQ. 1LT (12/1cx)", categoria: "LIMPEZA LÍQUIDA", embalagem: "lt" },
-  { codigo: "031", descricao: "CANDIDA 5L", categoria: "LIMPEZA LÍQUIDA", embalagem: "gl" },
-  { codigo: "038", descricao: "DESINFETANTE LAVANDA 5 LT", categoria: "LIMPEZA LÍQUIDA", embalagem: "gl" },
-  { codigo: "043", descricao: "MULTIUSO GERAL LIQ. 5 LT", categoria: "LIMPEZA LÍQUIDA", embalagem: "gl" },
-  { codigo: "027", descricao: "LIMPA ALUMINIO 5 LT", categoria: "LIMPEZA LÍQUIDA", embalagem: "gl" },
-  { codigo: "032", descricao: "SABONETE LIQ. ERVA D. 5LT", categoria: "LIMPEZA LÍQUIDA", embalagem: "gl" },
-
-  // Luvas Preta
-  { codigo: "141", descricao: "LUVA PRETA S/PO M - C/100", categoria: "LUVAS PRETA", embalagem: "cx" },
-  { codigo: "143", descricao: "LUVA PRETA S/PO G - C/100", categoria: "LUVAS PRETA", embalagem: "cx" },
-
-  // Panos
-  { codigo: "168", descricao: "PANO PRATO BRANCO C/5", categoria: "PANOS", embalagem: "pct" },
-  { codigo: "166", descricao: "SACO XADREZ AZUL C/5", categoria: "PANOS", embalagem: "pct" },
-
-  // Escritório
-  { codigo: "223", descricao: "PAPEL SULFITE C/500", categoria: "Escritório", embalagem: "pct" },
-  { codigo: "1480", descricao: "CANETA DETECTORA CEDULAS FALSAS", categoria: "Escritório", embalagem: "und" },
-  { codigo: "1158", descricao: "CANITA AZUL TIPO BIC", categoria: "Escritório", embalagem: "und" },
-  { codigo: "812", descricao: "GRAMPEADOR METAL 11.5CM 25 FLS", categoria: "Escritório", embalagem: "cx" },
-  { codigo: "816", descricao: "MARCA TEXTO AMARELO", categoria: "Escritório", embalagem: "und" },
-  { codigo: "1478", descricao: "MARCA TEXTO ROSA", categoria: "Escritório", embalagem: "und" },
-  { codigo: "1475", descricao: "MARCA TEXTO VERDE", categoria: "Escritório", embalagem: "und" },
-  { codigo: "817", descricao: "REGUA PLASTICA 30CM", categoria: "Escritório", embalagem: "und" },
-  { codigo: "1160", descricao: "CADERNO CD 1MATERIA C/80FLS", categoria: "Escritório", embalagem: "und" },
-  { codigo: "834", descricao: "ELASTICO DINHEIRO MAMUTH C/600", categoria: "Escritório", embalagem: "pct" }
-                ];
+                produtos = [{"categoria": "ALUMINIO", "codigo": "941", "descricao": "ROLO ALUMINIO 30X100 (UNIDADE)", "embalagem": "UND", "link": ""}, {"categoria": "ALUMINIO", "codigo": "941", "descricao": "ROLO ALUMINIO 30X100 (!Caixa C/6!)", "embalagem": "CX", "link": ""}, {"categoria": "COPOS / GARRAFAS", "codigo": "431", "descricao": "CANUDO SACHE C/500", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/cb-503-canudo-205x5mm-em-sache-bio-c-500-cropac/"}, {"categoria": "COPOS / GARRAFAS", "codigo": "1164", "descricao": "COPO 330ML C/100 (Pacote)", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/copo-330ml-pp-liso-c-50-totalplast/"}, {"categoria": "COPOS / GARRAFAS", "codigo": "1165", "descricao": "COPO 330ML C/1.000 (!CAIXA!)", "embalagem": "CX", "link": ""}, {"categoria": "COPOS / GARRAFAS", "codigo": "1166", "descricao": "COPO 550ML PP LISO C/50", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/copo-550ml-pp-liso-c-50-totalplast/"}, {"categoria": "COPOS / GARRAFAS", "codigo": "108", "descricao": "COPO 50ML CAFÉ C/100", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/copo-50ml-ps-transparente-estriado-c-100-totalplast/"}, {"categoria": "COPOS / GARRAFAS", "codigo": "256", "descricao": "GARRAFA PET 300ML C/100", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/garrafa-pet-cr-tp-lacre-300ml-c-100/"}, {"categoria": "COPOS / GARRAFAS", "codigo": "257", "descricao": "GARRAFA PET 500ML C/100", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/garrafa-pet-cr-tp-lacre-500ml-c-100/"}, {"categoria": "ISOPOR", "codigo": "114", "descricao": "TM-100-MARMITEX P C/100", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/tm-100-marmita-eps-500ml-com-tampa-188x35-c-100-totalplast/"}, {"categoria": "ISOPOR", "codigo": "112", "descricao": "TM-102-MARMITA M C/100", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/tm-102-marmita-eps-750ml-com-tampa-187x52-c-100-totalplast/"}, {"categoria": "PAPEL", "codigo": "264", "descricao": "PAPEL ACOPLADO 30X38 C/400", "embalagem": "CX", "link": "https://fbfdistribuidora.com.br/produto/papel-acoplado-hamburguer-30x38-c-400-castelinho/"}, {"categoria": "PAPEL", "codigo": "265", "descricao": "PAPEL ACOPLADO 40X40 C/400 (G)", "embalagem": "CX", "link": "https://fbfdistribuidora.com.br/produto/papel-acoplado-40x40-hamburguer-c-400-castelinho/"}, {"categoria": "PAPEL", "codigo": "266", "descricao": "GUARDANAPO TV C/2.000", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/guardanapo-tv-seda-14x13-c-2-000-castelinho/"}, {"categoria": "PAPEL", "codigo": "177", "descricao": "PAPEL HIGIENICO ROLÃO C/8", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/papel-higienico-suavepel-branco-rolao-advance-300mts-c-8/"}, {"categoria": "PAPEL", "codigo": "1375", "descricao": "PAPEL GUARA BOBINCA C/6", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/papel-toalha-bobina-branco-20cm-x-200mts-advance-c-6-rolos/"}, {"categoria": "PAPEL", "codigo": "173", "descricao": "PAPEL INTERFOLHADO C/1.000", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/papel-toalha-interfolha-branco-20cm-x-21cm-advance-c-1-000/"}, {"categoria": "PAPELARIA", "codigo": "814", "descricao": "CLIPS DE ACO 2/0 C/415", "embalagem": "CX", "link": ""}, {"categoria": "PAPELARIA", "codigo": "137", "descricao": "FITA DUREX 24X40 C/10", "embalagem": "PCT", "link": ""}, {"categoria": "PAPELARIA", "codigo": "813", "descricao": "GRAMPO C/5000", "embalagem": "CX", "link": ""}, {"categoria": "PAPELARIA", "codigo": "133", "descricao": "BOBINA AMARELA PDV C/30", "embalagem": "CX", "link": ""}, {"categoria": "PAPELARIA", "codigo": "134", "descricao": "BOBINA BRANCA PDV C/30", "embalagem": "CX", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "1098", "descricao": "SAQUINHO CHUP-CHUP C/100", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/saco-chup-chup-plastico-4x23cm-c-100/"}, {"categoria": "PLÁSTICOS", "codigo": "458", "descricao": "BOBINA FUNDO ESTRELA G", "embalagem": "RL", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "24", "descricao": "SACOLA PLAS. 38X48 C/1.000", "embalagem": "PCT", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "665", "descricao": "SACO LEITOSO PEBD 18X15", "embalagem": "PCT", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "1203", "descricao": "SACO LEITOSO PEBD 18X30", "embalagem": "PCT", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "1204", "descricao": "SACO LEITOSO PEBD 20X25", "embalagem": "PCT", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "2", "descricao": "SACO TALHER 6X24 C/1.000", "embalagem": "PCT", "link": ""}, {"categoria": "PLÁSTICOS", "codigo": "601", "descricao": "G645 - DOCE 120ML C/300", "embalagem": "CX", "link": "https://fbfdistribuidora.com.br/produto/g645-mini-doce-redondo-millenium-120ml-cristal-com-tampa-c-300-galvanotek/"}, {"categoria": "PLÁSTICOS", "codigo": "437", "descricao": "SACO LIXO 200 LTS REF. 5KG", "embalagem": "FD", "link": "https://fbfdistribuidora.com.br/produto/saco-de-lixo-200-litros-reforcado-5kg/"}, {"categoria": "TALHERES", "codigo": "4", "descricao": "KIT TALHER GARFO+FACA C/50", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/kit-garfo-e-faca-embalado-c-50-goldenplast/"}, {"categoria": "TALHERES", "codigo": "272", "descricao": "COLHER BOLO C/50", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/colher-sobremesa-c-50-goldenplast/"}, {"categoria": "TALHERES", "codigo": "810", "descricao": "PAZINHA SORVETE C/200", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/pa-pequena-cristal-goldenplast-c-200-goldenplast/"}, {"categoria": "TALHERES", "codigo": "155", "descricao": "PALITO SACHE C/1.000", "embalagem": "CX", "link": ""}, {"categoria": "LIMPEZA", "codigo": "618", "descricao": "LUVA AMARELA P (PAR)", "embalagem": "PCT", "link": ""}, {"categoria": "LIMPEZA", "codigo": "139", "descricao": "LUVA AMARELA M (PAR)", "embalagem": "PCT", "link": ""}, {"categoria": "LIMPEZA", "codigo": "582", "descricao": "LUVA AMARELA M (PAR)", "embalagem": "PCT", "link": ""}, {"categoria": "LIMPEZA", "codigo": "357", "descricao": "FIBRA DE LIMPEZA 3M C/5", "embalagem": "PCT", "link": ""}, {"categoria": "LIMPEZA", "codigo": "1421", "descricao": "ESPONJA ALUMIL ACO", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/esponja-alumil-aco-anatomica-30gr-und-start/"}, {"categoria": "LIMPEZA", "codigo": "283", "descricao": "LIMPA AZULEJO 25CM", "embalagem": "UND", "link": ""}, {"categoria": "LIMPEZA", "codigo": "284", "descricao": "RODO METAL 40CM", "embalagem": "UND", "link": ""}, {"categoria": "LIMPEZA", "codigo": "136", "descricao": "TOUCA TNT BRANCA C/100", "embalagem": "PCT", "link": ""}, {"categoria": "LIMPEZA", "codigo": "287", "descricao": "VASSOURA ESFREGAO", "embalagem": "UND", "link": ""}, {"categoria": "LIMPEZA", "codigo": "281", "descricao": "CABO DE MADEIRA 1,20CM", "embalagem": "UND", "link": ""}, {"categoria": "LIMPEZA LÍQUIDA", "codigo": "727", "descricao": "ALCOOL 70º LIQ. 1LT (12/1cx)", "embalagem": "LT", "link": "https://fbfdistribuidora.com.br/produto/alcool-liquido-1lt-70o-clarity/"}, {"categoria": "LIMPEZA LÍQUIDA", "codigo": "31", "descricao": "CANDIDA 5L", "embalagem": "GL", "link": "https://fbfdistribuidora.com.br/produto/agua-sanitaria-girassol-2-l2-5llimpador-clorado-mgd/"}, {"categoria": "LIMPEZA LÍQUIDA", "codigo": "38", "descricao": "DESINFETANTE LAVANDA 5 LT", "embalagem": "GL", "link": "https://fbfdistribuidora.com.br/produto/desinfetante-uso-geral-lavanda-5-litros-mgd/"}, {"categoria": "LIMPEZA LÍQUIDA", "codigo": "43", "descricao": "MULTIUSO GERAL LIQ. 5 LT", "embalagem": "GL", "link": "https://fbfdistribuidora.com.br/produto/multiuso-geral-liquido-le-5-litros-mgd/"}, {"categoria": "LIMPEZA LÍQUIDA", "codigo": "27", "descricao": "LIMPA ALUMINIO 5 LT", "embalagem": "GL", "link": "https://fbfdistribuidora.com.br/produto/limpa-aluminio-rosa-le-5-litros-mgd/"}, {"categoria": "LIMPEZA LÍQUIDA", "codigo": "32", "descricao": "SABONETE LIQ. ERVA D. 5LT", "embalagem": "GL", "link": "https://fbfdistribuidora.com.br/produto/sabonete-liquido-erva-doce-le-5-litros-mgd/"}, {"categoria": "LUVAS PRETA", "codigo": "141", "descricao": "LUVA PRETA S/PO M - C/100", "embalagem": "CX", "link": ""}, {"categoria": "LUVAS PRETA", "codigo": "143", "descricao": "LUVA PRETA S/PO G - C/100", "embalagem": "CX", "link": ""}, {"categoria": "PANOS", "codigo": "168", "descricao": "PANO PRATO BRANCO C/5", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/pano-de-prato-branco-42x65-com-5-unidades/"}, {"categoria": "PANOS", "codigo": "166", "descricao": "SACO XADREZ AZUL C/5", "embalagem": "PCT", "link": "https://fbfdistribuidora.com.br/produto/saco-alvejado-40x65-xadrez-azul-com-5-unidades/"}, {"categoria": "Escritório", "codigo": "223", "descricao": "PAPEL SULFITE C/500", "embalagem": "PCT", "link": ""}, {"categoria": "Escritório", "codigo": "1480", "descricao": "CANETA DETECTORA CEDULAS FALSAS", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "1158", "descricao": "CANITA AZUL TIPO BIC", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "812", "descricao": "GRAMPEADOR METAL 11.5CM 25 FLS", "embalagem": "CX", "link": ""}, {"categoria": "Escritório", "codigo": "816", "descricao": "MARCA TEXTO AMARELO", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "1478", "descricao": "MARCA TEXTO ROSA", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "1475", "descricao": "MARCA TEXTO VERDE", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "817", "descricao": "REGUA PLASTICA 30CM", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "1160", "descricao": "CADERNO CD 1MATERIA C/80FLS", "embalagem": "UND", "link": ""}, {"categoria": "Escritório", "codigo": "834", "descricao": "ELASTICO DINHEIRO MAMUTH C/600", "embalagem": "PCT", "link": ""}];
 
                 // Load stores
-                lojas = [
-                    { codigo: "0072", nome: "BB DOG ITAVUVU" },
-                    { codigo: "1719", nome: "BB DOG ARMANDO" },
-                    { codigo: "1720", nome: "BB DOG WANEL" },
-                    { codigo: "3694", nome: "BB DOG EDÉN" },
-                    { codigo: "3903", nome: "BB DOG VOTORANTIM" },
-                ];
+                lojas = [{"codigo": "0072", "nome": "BB DOG ITAVUVU"}, {"codigo": "1719", "nome": "BB DOG ARMANDO"}, {"codigo": "1720", "nome": "BB DOG WANEL"}, {"codigo": "3694", "nome": "BB DOG EDEN"}, {"codigo": "3903", "nome": "BB DOG VOTORANTIM"}];
 
                 // Populate stores
                 const lojaSelect = document.getElementById("loja");
@@ -989,106 +1162,155 @@
             const lista = document.getElementById("lista");
             lista.innerHTML = "";
 
-            let cat = "", totalVol = 0, itemCount = 0;
+            const hasItems = Object.values(qtd).some(v => v > 0);
+            if (hasItems && modo === "todos" && !termo) {
+                const clearBtn = document.createElement("button");
+                clearBtn.className = "clear-all-btn";
+                clearBtn.innerHTML = '<i class="bi bi-trash"></i> Limpar Todo o Pedido';
+                clearBtn.onclick = limparTudo;
+                lista.appendChild(clearBtn);
+            }
+
+            let cat = "", currentCatContent = null;
+            
+            // Contar quantas vezes cada código aparece
+            const codigoCount = {};
+            produtos.forEach(p => {
+                if (!p.descricao.toLowerCase().includes(termo) && !p.codigo.includes(termo)) return;
+                codigoCount[p.codigo] = (codigoCount[p.codigo] || 0) + 1;
+            });
+            
+            // Rastrear qual é a ocorrência de cada código
+            const codigoOccurrence = {};
 
             produtos.forEach(p => {
-                const q = qtd[p.codigo] || 0;
-
+                const chaveUnica = `${p.codigo}_${p.embalagem}`;
+                const q = qtd[chaveUnica] || 0;
                 if (!p.descricao.toLowerCase().includes(termo) && !p.codigo.includes(termo)) return;
                 if (modo === "sel" && q === 0) return;
 
-                // Add category header
                 if (p.categoria !== cat) {
                     cat = p.categoria;
+                    const isCollapsed = collapsedCats[cat] || false;
                     const categoryDiv = document.createElement("div");
-                    categoryDiv.className = "category-badge";
-                    categoryDiv.innerHTML = `<i class="bi bi-tag"></i> ${cat}`;
+                    categoryDiv.className = "category-badge" + (isCollapsed ? " collapsed" : "");
+                    categoryDiv.innerHTML = `<span><i class="bi bi-tag"></i> ${cat}</span><i class="bi bi-chevron-down chevron"></i>`;
+                    categoryDiv.onclick = () => toggleCat(p.categoria);
                     lista.appendChild(categoryDiv);
+                    
+                    currentCatContent = document.createElement("div");
+                    currentCatContent.className = "category-content" + (isCollapsed ? " collapsed" : "");
+                    lista.appendChild(currentCatContent);
+                }
+                
+                // Incrementar ocorrência deste código
+                codigoOccurrence[p.codigo] = (codigoOccurrence[p.codigo] || 0) + 1;
+                const isFirstOccurrence = codigoOccurrence[p.codigo] === 1;
+                const hasMultipleOccurrences = codigoCount[p.codigo] > 1;
+                
+                // Determinar o código a exibir
+                let codigoExibicao = p.codigo;
+                if (!isFirstOccurrence && hasMultipleOccurrences) {
+                    codigoExibicao = `${p.codigo} (${p.embalagem})`;
                 }
 
-                if (q > 0) totalVol += q;
-
-                // Add product item
                 const itemDiv = document.createElement("div");
                 itemDiv.className = `product-item ${q > 0 ? "selected" : ""}`;
+                const linkHtml = p.link ? `<a href="${p.link}" target="_blank" class="view-link-btn"><i class="bi bi-eye"></i></a>` : "";
+
                 itemDiv.innerHTML = `
-                    <div class="product-info">
-                        <p class="product-code">${p.codigo}</p>
-                        <p class="product-name">${p.descricao}</p>
+                    <div class="product-info-wrapper">
+                        <div class="product-info">
+                            <p class="product-code">${codigoExibicao}</p>
+                            <p class="product-name">${p.descricao}</p>
+                        </div>
+                        ${linkHtml}
                     </div>
                     <div class="quantity-control">
-                        <button class="qty-btn minus" onmousedown="segurar('${p.codigo}')" onmouseup="parar()" ontouchstart="segurar('${p.codigo}')" ontouchend="parar()" onclick="menos('${p.codigo}')">−</button>
+                        <button class="qty-btn minus" onclick="menos('${chaveUnica}')">−</button>
                         <div class="qty-display">${q}</div>
-                        <button class="qty-btn plus" onclick="mais('${p.codigo}')">+</button>
+                        <button class="qty-btn plus" onclick="mais('${chaveUnica}')">+</button>
                     </div>
                 `;
-                lista.appendChild(itemDiv);
+                currentCatContent.appendChild(itemDiv);
             });
 
-            // Check if there are results
             if (lista.children.length === 0) {
-                lista.innerHTML = `
-                    <div class="empty-state">
-                        <i class="bi bi-search"></i>
-                        <p>Nenhum produto encontrado</p>
-                    </div>
-                `;
+                lista.innerHTML = '<div class="empty-state"><i class="bi bi-search"></i><p>Nenhum produto encontrado</p></div>';
             }
-
-            // Update summary (removed from sidebar)
-
-            // Update order review
             updateOrderReview();
-
-            // Update floating cart
             updateFloatingCart();
         }
 
         // Update order review section
         function updateOrderReview() {
-            const itemCount = Object.values(qtd).filter(v => v > 0).length;
+            const items = produtos.filter(p => (qtd[`${p.codigo}_${p.embalagem}`] || 0) > 0);
             const orderReview = document.getElementById("orderReview");
-
-            if (itemCount === 0) {
+            if (items.length === 0) {
                 orderReview.style.display = "none";
                 updateFloatingCart();
                 return;
             }
-
             orderReview.style.display = "block";
-
             const painel = document.getElementById("painel");
-            let html = "";
-
-            let i = 0;
             let totalVol = 0;
-            produtos.forEach(p => {
-                if (qtd[p.codigo] > 0) {
-                    totalVol += qtd[p.codigo];
-                    html += `
-                        <div class="order-item">
-                            <div class="order-item-code">${p.codigo}</div>
-                            <div class="order-item-desc">${p.descricao}</div>
-                            <div class="order-item-qty">${qtd[p.codigo]} ${p.embalagem}</div>
-                        </div>
-                    `;
-                    i++;
-                }
+            
+            // Contar quantas vezes cada código aparece nos items selecionados
+            const codigoCountReview = {};
+            items.forEach(p => {
+                codigoCountReview[p.codigo] = (codigoCountReview[p.codigo] || 0) + 1;
             });
-
-            html += `<div class="order-summary">Total: ${i} item${i > 1 ? "s" : ""} | Volumes: ${totalVol}</div>`;
-            painel.innerHTML = html;
+            
+            // Rastrear qual é a ocorrência de cada código
+            const codigoOccurrenceReview = {};
+            
+            let html = items.map(p => {
+                const chaveUnica = `${p.codigo}_${p.embalagem}`;
+                totalVol += qtd[chaveUnica];
+                
+                // Incrementar ocorrência deste código
+                codigoOccurrenceReview[p.codigo] = (codigoOccurrenceReview[p.codigo] || 0) + 1;
+                const isFirstOccurrence = codigoOccurrenceReview[p.codigo] === 1;
+                const hasMultipleOccurrences = codigoCountReview[p.codigo] > 1;
+                
+                // Determinar o código a exibir
+                let codigoExibicao = p.codigo;
+                if (!isFirstOccurrence && hasMultipleOccurrences) {
+                    codigoExibicao = `${p.codigo} (${p.embalagem})`;
+                }
+                
+                return `
+                    <div class="order-item">
+                        <div class="order-item-info">
+                            <div class="order-item-code">${codigoExibicao}</div>
+                            <div class="order-item-desc">${p.descricao}</div>
+                            <div class="order-item-actions" style="background: var(--light-bg); padding: 0.2rem; border-radius: 6px; display: inline-flex; gap: 0.35rem;">
+                                <button class="qty-btn minus" style="width: 28px; height: 28px; font-size: 0.9rem;" onclick="menos(\'${chaveUnica}\')">−</button>
+                                <span class="mx-2"><strong>${qtd[chaveUnica]}</strong> ${p.embalagem}</span>
+                                <button class="qty-btn plus" style="width: 28px; height: 28px; font-size: 0.9rem;" onclick="mais(\'${chaveUnica}\')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+            painel.innerHTML = html + `<div class="order-summary">Total: ${items.length} item(s) | Volumes: ${totalVol}</div>`;
         }
 
         // Quantity functions
         function mais(c) {
             qtd[c] = (qtd[c] || 0) + 1;
+            pulseCart();
+            saveState();
             render();
         }
 
         function menos(c) {
-            if (qtd[c]) qtd[c]--;
-            render();
+            if (qtd[c] > 0) {
+                qtd[c]--;
+                pulseCart();
+                saveState();
+                render();
+            }
         }
 
         function segurar(c) {
@@ -1115,50 +1337,105 @@
         // Generate order number
         function gerarNumero() {
             const d = new Date();
-            return "BB" + String(d.getDate()).padStart(2, "0") + String(d.getMonth() + 1).padStart(2, "0") + d.getFullYear().toString().slice(2) + "-" + String(d.getHours()).padStart(2, "0") + String(d.getMinutes()).padStart(2, "0");
+            return "PED" + String(d.getDate()).padStart(2, "0") + String(d.getMonth() + 1).padStart(2, "0") + d.getFullYear().toString().slice(2) + "-" + String(d.getHours()).padStart(2, "0") + String(d.getMinutes()).padStart(2, "0");
+        }
+
+        let deliveryOption = false;
+
+        function setDeliveryOption(val) {
+            deliveryOption = val;
+            document.getElementById('optSim').classList.toggle('active', val);
+            document.getElementById('optNao').classList.toggle('active', !val);
+            document.getElementById('deliveryNotesArea').style.display = val ? 'block' : 'none';
+            if (val) document.getElementById('deliveryNotes').focus();
+        }
+
+        function openDeliveryModal() {
+            const comprador = document.getElementById("comprador");
+            if (!comprador.value.trim()) {
+                comprador.classList.add("error");
+                comprador.focus();
+                showToast("Por favor, informe seu nome", "error");
+                return;
+            }
+            comprador.classList.remove("error");
+            
+            document.getElementById("deliveryModal").style.display = "flex";
+            setDeliveryOption(false);
+        }
+
+        function closeDeliveryModal() {
+            document.getElementById("deliveryModal").style.display = "none";
+        }
+
+        function confirmAndSend() {
+            const msg = montar();
+            if (msg) {
+                window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg));
+                showToast("Pedido enviado com sucesso!");
+                closeDeliveryModal();
+            }
         }
 
         // Build message
         function montar() {
             const lojaSelect = document.getElementById("loja");
+            const comprador = document.getElementById("comprador").value.trim();
+            
             if (!lojaSelect.value) {
                 showToast("Selecione uma loja", "error");
                 return null;
             }
+            if (!comprador) {
+                showToast("Informe o nome do comprador", "error");
+                return null;
+            }
 
-            let msg = `*Pedido* Nº: ${gerarNumero()}\n`;
-            msg += `Loja: ${lojaSelect.value}\n\n*Itens*\n`;
+            const numPedido = gerarNumero();
+            const dataHora = new Date().toLocaleString('pt-BR');
 
-            let total = 0;
+            let msg = `*NOVO PEDIDO: ${lojaSelect.value}*\n`;
+            msg += `*Nº:* ${numPedido}\n`;
+            msg += `*COMPRADOR:* ${comprador}\n\n`;
+
+            let totalItens = 0;
+            let totalVolumes = 0;
+            let currentCat = "";
+
             produtos.forEach(p => {
-                if (qtd[p.codigo] > 0) {
-                    total++;
-                    msg += `${p.codigo} - ${p.descricao} = ${qtd[p.codigo]} ${p.embalagem}\n`;
+                const chaveUnica = `${p.codigo}_${p.embalagem}`;
+                const q = qtd[chaveUnica] || 0;
+                if (q > 0) {
+                    if (p.categoria !== currentCat) {
+                        currentCat = p.categoria;
+                        msg += `\n> *${currentCat.toUpperCase()}*\n`;
+                    }
+                    totalItens++;
+                    totalVolumes += q;
+                    msg += `- [${p.codigo}] *x ${q} (${p.embalagem})* ${p.descricao}\n`;
                 }
             });
 
             const extra = document.getElementById("extra").value;
             if (extra) {
-                msg += `\n*OBSERVAÇÕES OU FALTAS*\n${extra}\n`;
+                msg += `\n*OBSERVAÇÕES OU FALTAS:*\n${extra}\n`;
             }
 
-            msg += `\n---------------\n*TOTAL DE ITENS:* ${total}`;
+            // Delivery notes
+            if (deliveryOption) {
+                const deliveryNotes = document.getElementById("deliveryNotes").value.trim();
+                if (deliveryNotes) {
+                    msg += `\n*ENTREGA/LOCAL:*\n${deliveryNotes}\n`;
+                }
+            }
+
+            msg += `\n--------------------------\n`;
+            msg += `*RESUMO:*\n`;
+            msg += `*Total de Itens:* ${totalItens}\n`;
+            msg += `*Total de Volumes:* ${totalVolumes}\n\n`;
+            msg += `*Gerado em:* ${dataHora}`;
+
             return msg;
-        }
-
-        // Send order
-        function enviar() {
-            const lojaSelect = document.getElementById("loja");
-            if (!lojaSelect.value) {
-                showToast("Selecione uma loja", "error");
-                return;
-            }
-
-            const msg = montar();
-            if (msg) {
-                window.open("https://wa.me/5515997094000?text=" + encodeURIComponent(msg));
-                showToast("Pedido enviado com sucesso!");
-            }
         }
 
         // Filter buttons
@@ -1231,5 +1508,31 @@
         // Update floating cart on page load
         window.addEventListener("load", updateFloatingCart);
     </script>
+
+    <!-- Delivery Questionnaire Modal -->
+    <div id="deliveryModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-title">Alguma observação quanto ao horário de recebimento ou local de entrega?</div>
+            <div class="modal-options">
+                <div class="modal-option" id="optNao" onclick="setDeliveryOption(false)">Não</div>
+                <div class="modal-option" id="optSim" onclick="setDeliveryOption(true)">Sim</div>
+            </div>
+            <div id="deliveryNotesArea" class="delivery-notes-area">
+                <textarea id="deliveryNotes" placeholder="Descreva aqui as observações de entrega..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" onclick="closeDeliveryModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="confirmAndSend()">Finalizar e Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Version -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <span class="footer-text">Versão 1.0.0 • 21/04/26</span>
+        </div>
+    </footer>
+
 </body>
 </html>
